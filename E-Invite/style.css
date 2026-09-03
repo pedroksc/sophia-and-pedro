@@ -1,0 +1,878 @@
+/* =========================================================
+   SOPHIA & PEDRO
+   Wedding Invitation Microsite
+========================================================= */
+
+
+/* =========================================================
+   GOOGLE FONTS
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap');
+
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root {
+
+    /* Background */
+    --background-cream: #f7f1e7;
+    --background-soft: #eee3d4;
+
+    /* Envelope */
+    --envelope-main: #e8d7c3;
+    --envelope-light: #f2e5d6;
+    --envelope-dark: #d7c0a7;
+
+    /* Typography */
+    --text-main: #5d5249;
+    --text-soft: #786b60;
+
+    /* Accent */
+    --sage: #8c9b84;
+    --sage-dark: #6f8069;
+
+    /* Gold */
+    --gold: #b99a67;
+    --gold-light: #d7c29b;
+
+    /* Fonts */
+    --font-calligraphy: "Great Vibes", cursive;
+    --font-serif: "Cormorant Garamond", serif;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+
+    font-family: var(--font-serif);
+
+    color: var(--text-main);
+
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(255, 255, 255, 0.85),
+            transparent 45%
+        ),
+        linear-gradient(
+            135deg,
+            var(--background-cream),
+            var(--background-soft)
+        );
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.invitation-microsite {
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SCENE
+========================================================= */
+
+.scene {
+    position: relative;
+
+    width: 100%;
+
+    min-height: 100vh;
+    min-height: 100svh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 16px;
+
+    /*
+       Important:
+       Allows the invitation to come out of the envelope
+       without getting cropped.
+    */
+    overflow: visible;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 0;
+
+    pointer-events: none;
+}
+
+
+.background-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255, 255, 255, 0.75) 0%,
+            rgba(255, 255, 255, 0.25) 40%,
+            rgba(214, 195, 169, 0.12) 75%,
+            rgba(158, 133, 103, 0.12) 100%
+        );
+}
+
+
+/* =========================================================
+   DECORATIVE BACKGROUND
+========================================================= */
+
+.background-decor {
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    border-radius: 50%;
+
+    filter: blur(2px);
+
+    opacity: 0.22;
+}
+
+
+.background-decor-top {
+    top: -160px;
+    left: -140px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(138, 157, 130, 0.65),
+            rgba(138, 157, 130, 0.08) 65%,
+            transparent 75%
+        );
+}
+
+
+.background-decor-bottom {
+    bottom: -180px;
+    right: -140px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(196, 164, 139, 0.65),
+            rgba(196, 164, 139, 0.08) 65%,
+            transparent 75%
+        );
+}
+
+
+/* =========================================================
+   ENVELOPE STAGE
+========================================================= */
+
+.envelope-stage {
+    position: relative;
+
+    z-index: 10;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    perspective: 1400px;
+}
+
+
+/* =========================================================
+   ENVELOPE
+========================================================= */
+
+.envelope {
+    position: relative;
+
+    width: min(92vw, 680px);
+
+    aspect-ratio: 1.5 / 1;
+
+    transform: translate3d(0, 0, 0);
+
+    transition:
+        transform 1.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+    will-change: transform;
+
+    /*
+       Do NOT use overflow:hidden here.
+       The card needs to come out of the envelope.
+    */
+
+    filter:
+        drop-shadow(
+            0 25px 30px rgba(76, 54, 35, 0.18)
+        );
+}
+
+.envelope.is-opening,
+.envelope.is-open {
+    transform:
+        translate3d(
+            0,
+            clamp(90px, 15svh, 130px),
+            0
+        );
+}
+
+
+/* =========================================================
+   ENVELOPE BACK
+========================================================= */
+
+.envelope-back {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--envelope-light),
+            var(--envelope-main)
+        );
+
+    border-radius: 4px;
+
+    border:
+        1px solid rgba(121, 97, 70, 0.15);
+
+    box-shadow:
+        0 20px 45px rgba(79, 58, 38, 0.18);
+
+    z-index: 1;
+}
+
+
+/* =========================================================
+   INVITATION CARD
+========================================================= */
+
+.invitation-card {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    bottom: 2%;
+
+    width: fit-content;
+    height: fit-content;
+
+    max-width: 90vw;
+
+    background: transparent;
+    border: none;
+
+    overflow: visible;
+
+    z-index: 2;
+
+    /*
+       CLOSED STATE
+
+       The invitation remains completely hidden
+       until JavaScript opens the envelope.
+    */
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    /*
+       Initial position for animation.
+    */
+
+    transform: translateY(25%);
+
+    transition:
+        transform 1.2s ease,
+        opacity 0.6s ease;
+}
+
+
+.invitation-background-image {
+    display: block;
+
+    width: auto;
+    height: auto;
+
+    max-width: 75%;
+
+    max-height: 75%;
+
+    object-fit: contain;
+
+    margin: 0 auto;
+
+    box-shadow:
+        0 20px 50px rgba(43, 31, 22, 0.25);
+
+}
+
+/* =========================================================
+   REMOVE OLD PAPER TEXTURE
+========================================================= */
+
+.invitation-card::before,
+.invitation-card::after {
+    display: none;
+}
+
+
+
+/* =========================================================
+   PHOTO OVERLAY
+========================================================= */
+
+
+/* =========================================================
+   INVITATION CONTENT
+========================================================= */
+
+
+/* =========================================================
+   RSVP AREA
+========================================================= */
+
+.invitation-action {
+    margin-top: 26px;
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   RSVP BUTTON
+========================================================= */
+
+.rsvp-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 48px;
+
+    padding:
+        12px
+        28px;
+
+    text-decoration: none;
+
+    font-family: var(--font-serif);
+
+    font-size:
+        clamp(
+            0.95rem,
+            2vw,
+            1.15rem
+        );
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+
+    color: #fffdf7;
+
+    background:
+        rgba(109, 126, 101, 0.88);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.5);
+
+    border-radius: 50px;
+
+    backdrop-filter: blur(8px);
+
+    -webkit-backdrop-filter: blur(8px);
+
+    box-shadow:
+        0 8px 22px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.rsvp-button:hover {
+    transform: translateY(-2px);
+
+    background:
+        rgba(94, 111, 87, 0.95);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+
+
+/* =========================================================
+   ENVELOPE FRONT
+========================================================= */
+
+.envelope-front {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 67%;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--envelope-main),
+            var(--envelope-light)
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            50% 55%,
+            100% 0,
+            100% 100%,
+            0 100%
+        );
+
+    z-index: 4;
+}
+
+
+/* =========================================================
+   LEFT FOLD
+========================================================= */
+
+.envelope-left-fold {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 51%;
+    height: 72%;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--envelope-light),
+            var(--envelope-main)
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 72%,
+            0 100%
+        );
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   RIGHT FOLD
+========================================================= */
+
+.envelope-right-fold {
+    position: absolute;
+
+    right: 0;
+    bottom: 0;
+
+    width: 51%;
+    height: 72%;
+
+    background:
+        linear-gradient(
+            225deg,
+            var(--envelope-light),
+            var(--envelope-main)
+        );
+
+    clip-path:
+        polygon(
+            100% 0,
+            0 72%,
+            100% 100%
+        );
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   BOTTOM FOLD
+========================================================= */
+
+.envelope-bottom-fold {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 64%;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(240, 225, 207, 0.95),
+            var(--envelope-main)
+        );
+
+    clip-path:
+        polygon(
+            0 100%,
+            50% 28%,
+            100% 100%
+        );
+
+    z-index: 6;
+}
+
+
+/* =========================================================
+   ENVELOPE FLAP
+========================================================= */
+
+.envelope-flap {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 62%;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--envelope-light),
+            var(--envelope-main)
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            50% 100%
+        );
+
+    transform-origin: top center;
+
+    /* backface-visibility: hidden; */
+
+    /* -webkit-backface-visibility: hidden; */
+
+    z-index: 7;
+
+    box-shadow:
+        0 8px 15px rgba(93, 72, 51, 0.06);
+}
+
+
+/* =========================================================
+   WAX SEAL
+========================================================= */
+
+.wax-seal {
+    position: absolute;
+
+    left: 50%;
+    top: 52%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 10;
+
+    width:
+        clamp(
+            72px,
+            14vw,
+            110px
+        );
+
+    aspect-ratio: 1;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    border-radius: 50%;
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
+}
+
+
+/* =========================================================
+   WAX SEAL IMAGE
+========================================================= */
+
+.wax-seal-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 8px 9px
+            rgba(72, 44, 28, 0.30)
+        );
+}
+
+
+/* =========================================================
+   WAX SEAL HOVER
+========================================================= */
+
+.wax-seal:hover {
+    transform:
+        translate(-50%, -50%)
+        scale(1.05);
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+.wax-seal:focus-visible,
+.rsvp-button:focus-visible {
+    outline:
+        2px solid
+        var(--gold);
+
+    outline-offset: 5px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .scene {
+        padding:
+            20px
+            12px;
+    }
+
+
+    .envelope {
+        width:
+            min(
+                94vw,
+                600px
+            );
+    }
+
+
+    .invitation-card-inner {
+        padding:
+            34px
+            25px;
+    }
+
+    .invitation-background-image {
+
+        margin-bottom: 10%;
+    }
+
+
+    .invitation-action {
+        margin-top: 22px;
+        margin-bottom: 18px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 520px) {
+
+    .scene {
+        min-height: 100svh;
+
+        padding:
+            15px
+            10px;
+    }
+
+
+    .envelope {
+        width: 95vw;
+
+        aspect-ratio:
+            1.2 / 1;
+    }
+
+
+    .invitation-card-inner {
+        padding:
+            28px
+            20px;
+        
+    }
+
+    .invitation-background-image {
+        
+        max-width: 100%;
+        max-height: 100%;
+        margin-bottom: 8%;
+        
+    }
+
+
+    .couple-names {
+        margin-bottom: 12px;
+    }
+
+
+    .invitation-line {
+        line-height: 1.4;
+    }
+
+
+    .invitation-action {
+        margin-top: 18px;
+        margin-bottom: 16px;
+    }
+
+
+    .rsvp-button {
+        min-height: 44px;
+
+        padding:
+            10px
+            22px;
+    }
+
+
+    .closing-line {
+        margin-top: 0;
+    }
+
+
+    .wax-seal {
+        top: 51%;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .invitation-card-inner {
+        padding:
+            22px
+            16px;
+    }
+
+
+    .couple-names {
+        font-size: 2.8rem;
+    }
+
+
+    .invitation-line {
+        font-size: 0.95rem;
+    }
+
+
+    .closing-line {
+        font-size: 1.7rem;
+    }
+
+
+    .rsvp-button {
+        font-size: 0.9rem;
+
+        padding:
+            9px
+            18px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+
+        transition-duration:
+            0.01ms !important;
+
+        animation-duration:
+            0.01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+    }
+}
