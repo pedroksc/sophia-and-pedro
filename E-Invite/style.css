@@ -769,6 +769,62 @@ body {
     outline-offset: 5px;
 }
 
+/* =========================================================
+   CINEMATIC DIMMING LAYER
+========================================================= */
+
+.scene::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    /*
+       Above the background,
+       but BELOW the envelope/invitation.
+    */
+    z-index: 5;
+
+    background: rgba(25, 20, 16, 0.25);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.envelope-back,
+.envelope-front,
+.envelope-left-fold,
+.envelope-right-fold,
+.envelope-bottom-fold,
+.envelope-flap {
+    transition:
+        filter 3s ease,
+        opacity 3s ease;
+}
+
+
+.scene.invite-focus .envelope-back,
+.scene.invite-focus .envelope-front,
+.scene.invite-focus .envelope-left-fold,
+.scene.invite-focus .envelope-right-fold,
+.scene.invite-focus .envelope-bottom-fold,
+.scene.invite-focus .envelope-flap {
+    filter:
+        brightness(0.75)
+        saturate(0.9);
+}
+
+/*
+   Turn the dimming on when the invitation is revealed.
+*/
+
+.scene.invite-focus::after {
+    opacity: 1;
+}
+
 
 /* =========================================================
    TABLET

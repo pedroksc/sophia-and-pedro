@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const waxSeal = document.querySelector(".wax-seal");
     const envelopeFlap = document.querySelector(".envelope-flap");
     const invitationCard = document.querySelector(".invitation-card");
-
+    const scene = document.querySelector(".scene");
     if (
         !envelope ||
         !waxSeal ||
@@ -327,6 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
         */
 
         invitationCard.style.zIndex = "2";
+        scene.classList.add("invite-focus");
 
         const riseAnimation = invitationCard.animate(
             [
