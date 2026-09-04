@@ -798,6 +798,10 @@ body {
             25px;
     }
 
+    .invitation-artwork {
+        width: 100%;
+    }
+
     .invitation-background-image {
 
         margin-bottom: 10%;
@@ -841,12 +845,8 @@ body {
         
     }
 
-    .invitation-background-image {
-        
-        max-width: 100%;
-        max-height: 100%;
-        margin-bottom: 8%;
-        
+    .invitation-artwork {
+        width: 100%
     }
 
 
