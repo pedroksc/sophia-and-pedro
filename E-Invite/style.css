@@ -305,10 +305,11 @@ body {
 
     background: transparent;
     border: none;
+    padding: 0;
 
     overflow: visible;
 
-    z-index: 2;
+    /* z-index: 2; */
 
     /*
        CLOSED STATE
@@ -332,16 +333,19 @@ body {
         opacity 0.6s ease;
 }
 
+.invitation-artwork {
+    position: relative;
+
+    width: 75%;
+
+    margin: 0 auto;
+}
 
 .invitation-background-image {
     display: block;
 
-    width: auto;
+    width: 100%;
     height: auto;
-
-    max-width: 75%;
-
-    max-height: 75%;
 
     object-fit: contain;
 
@@ -350,6 +354,71 @@ body {
     box-shadow:
         0 20px 50px rgba(43, 31, 22, 0.25);
 
+}
+
+/* =========================================================
+   INVISIBLE RSVP BUTTON
+========================================================= */
+
+.rsvp-hotspot {
+    position: absolute;
+
+    /*
+       These values position the clickable rectangle
+       over the fake button in your artwork.
+    */
+
+    left: 50%;
+    top: 90%;
+    width: 48%;
+    height: 6%;
+    border-radius: 50px;
+
+    transform: translateX(-50%);
+
+    z-index: 20;
+
+    /* Completely invisible */
+    background: transparent;
+    outline: none;
+    border: none;
+    color: transparent;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    /*
+       Important:
+       make the entire rectangle clickable.
+    */
+    display: block;
+}
+
+
+/* Screen-reader text, invisible visually */
+.visually-hidden {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+
+    border: 0;
+}
+
+
+/* Accessibility — only visible when navigating by keyboard */
+
+.rsvp-hotspot:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.9);
+    outline-offset: 3px;
 }
 
 /* =========================================================
